@@ -9,6 +9,7 @@ public:
     virtual ~Progression(); /* destructor */
     /* virtual destructor
      * when need to potentially delete an instance of a derived class through a pointer to this base class
+     * Read: static_binding vs dynamic_binding (virtual functions)
      */
     void print_progression(int nelements); /* public method */
 
