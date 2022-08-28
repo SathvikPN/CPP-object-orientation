@@ -1,4 +1,7 @@
-/* Tic-Tac-Toe game via object orientated implementation */
+/* 
+ * Tic-Tac-Toe game via object orientated implementation
+ * Test run: https://www.onlinegdb.com/online_c++_compiler
+ */
 #include <iostream>
 #include <cstdlib> /* system cmds */
 
