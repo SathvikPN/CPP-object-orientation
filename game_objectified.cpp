@@ -128,7 +128,7 @@ void TicTacToe::run()
         play();
 
     if(winner)
-        std::cout <<"WINNER: Player" << player << std::endl;
+        std::cout <<"WINNER: Player" << winner << std::endl;
     else
         std::cout << "< MATCH DRAW >" << std::endl;
 }
