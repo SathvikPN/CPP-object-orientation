@@ -8,3 +8,7 @@ Extend programming concepts from C to object oriented C++
 4. Pointers
 
 > we do not need to know every detail of this sophisticated language in order to use it effectively
+
+---
+
+usecase: tool to solve computational problems
