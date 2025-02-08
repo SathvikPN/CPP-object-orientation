@@ -5,10 +5,8 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    string s="hello";
-    sort(s.begin(), s.end());
-    cout << s ;
-
+    vector<int> a = {1,2,3};
+    cout << *max_element(a.begin(), a.end());
 
     return 0;
 }
@@ -24,7 +22,7 @@ public:
         }
         while(i<word1.size()) result[k++]=word1[i++];
         while(j<word2.size()) result[k++]=word2[j++];
-        return string(result.begin(), result.end());
+        return string(result.begin(), result.end()); // see
     }
 };
 
@@ -41,13 +39,36 @@ public:
             xlen--;
         }
 
-        return str1.substr(0, xlen);
+        return str1.substr(0, xlen); // see
     }
 };
 
+class Solution_1431 {
+public:
+    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
+        vector<bool> result(candies.size(), false);
+        int cmax = *max_element(candies.begin(), candies.end()); // see
+        for(int i=0; i<result.size(); i++){
+            if(candies[i]+extraCandies >= cmax) result[i]=true;
+        }
+        return result;
+    }
+};
 
-
-
+class Solution_605 {
+public:
+    bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+        if(n==0) return true;
+        for(int i=0; i<flowerbed.size(); i++){
+            if(flowerbed[i]) continue;
+            if(i-1>=0 && flowerbed[i-1]) continue;
+            if(i+1<flowerbed.size() && flowerbed[i+1]) continue;
+            flowerbed[i]=1;  n--;
+            if(n==0) return true;
+        }
+        return false;
+    }
+};
 
 
 
