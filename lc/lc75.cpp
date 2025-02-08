@@ -92,11 +92,26 @@ public:
             if(words[i]=="") continue;
             s = s + words[i] + " ";
         }
-        s.pop_back();
+        s.pop_back(); // see
         return s;
     }
 };
 
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> answer(n);
+        vector<int> pp(n+2, 1); // prefixProduct 0 1..n n+1
+        vector<int> sp(n+2, 1); // suffixProduct
+
+        for(int i=1; i<=n; i++) pp[i] = nums[i-1] * pp[i-1];
+        for(int i=n; i>=1; i--) sp[i] = nums[i-1] * sp[i+1];
+
+        for(int i=1; i<=n; i++) answer[i-1] = pp[i-1] * sp[i+1];
+        return answer;
+    }
+};
 
 int main() {
     ios_base::sync_with_stdio(false);
