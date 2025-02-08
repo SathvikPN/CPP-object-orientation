@@ -246,6 +246,43 @@ public:
     }
 };
 
+
+class Solution_1004 {
+public:
+    int longestOnes(vector<int>& nums, int k) {
+        int left=0, right=0, n=nums.size();
+        while(right<n){
+            if(nums[right]==0) k--; // use k-token
+            if(k<0) {
+                if(nums[left]==0) k++; // release k-token
+                left++;
+            }
+            right++;
+        }
+
+        return right-left;
+    }
+};
+
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+        int n = nums.size();
+        int left = 0, result=0, zcount=0;
+
+        for(int right=0; right < n; right++){
+            if(nums[right]==0) zcount++;
+            while(zcount>1){
+                if(nums[left]==0) zcount--;
+                left++;
+            }
+            result = max(result, right - left + 1 - zcount);
+        }
+
+        return (result == n) ? result-1 : result;
+    }
+};
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
