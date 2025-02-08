@@ -196,6 +196,56 @@ public:
     }
 };
 
+class Solution_1679 {
+public:
+    int maxOperations(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        int count=0;
+        int i=0, j=nums.size()-1;
+        while(i<j){
+            int s=nums[i]+nums[j];
+            if(s==k) {count++; i++; j--; continue;}
+            if(s<k) i++;
+            else j--;
+        }
+        return count;
+    }
+};
+
+class Solution_643 {
+public:
+    double findMaxAverage(vector<int>& nums, int k) {
+        int j,msum=0, csum=0;
+        for(j=0;j<k; j++) csum+=nums[j];
+        msum = csum;
+        for(j=k;j<nums.size();j++){
+            csum = csum + nums[j] - nums[j-k];
+            msum = max(msum, csum);
+        }
+
+        return double(msum)/double(k);
+    }
+};
+
+class Solution_1456 {
+public:
+    int maxVowels(string s, int k) {
+        int j, vcount=0, vmax=0; 
+        set<char> vset = {'a','e','i','o','u'};
+        for(j=0; j<k; j++){
+            if(vset.count(s[j])) vcount++;
+        }
+
+        vmax = max(vmax, vcount);
+        for(j=k; j<s.size(); j++){
+            if(vset.count(s[j-k])) vcount--;
+            if(vset.count(s[j])) vcount++;
+            vmax = max(vmax, vcount);
+        }
+        return vmax;
+    }
+};
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
