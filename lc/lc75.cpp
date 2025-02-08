@@ -97,7 +97,7 @@ public:
     }
 };
 
-class Solution {
+class Solution_238 {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         int n=nums.size();
