@@ -1,15 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 const long long MOD = 1e9+7; // 10^9 + 7
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    vector<int> a = {1,2,3};
-    cout << *max_element(a.begin(), a.end());
-
-    return 0;
-}
 
 class Solution_1768 {
 public:
@@ -70,10 +61,50 @@ public:
     }
 };
 
+class Solution_345 {
+public:
+    string reverseVowels(string s) {
+        set<char> vset={'a','e','i','o','u','A','E','I','O','U'};
+        int i=0, j=s.size()-1;
+        while(i<j){
+            while(i<j && !vset.count(s[i])) i++;
+            while(i<j && !vset.count(s[j])) j--;
+            // i==j OR (si,sj vowels)
+            swap(s[i++], s[j--]); // see
+        }
+        return s;
+    }
+};
+
+class Solution_151 {
+public:
+    string reverseWords(string s) {
+        vector<string> words;
+        vector<char> word;
+        for(char c:s){
+            if(!isspace(c)) {word.push_back(c); continue;}
+            words.push_back(string(word.begin(), word.end()));
+            word.clear();
+        }
+        words.push_back(string(word.begin(), word.end()));
+        s.clear();
+        for(int i=words.size()-1; i>=0; i--) {
+            if(words[i]=="") continue;
+            s = s + words[i] + " ";
+        }
+        s.pop_back();
+        return s;
+    }
+};
 
 
-
-
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    Solution_151 Solution_151;
+    cout << Solution_151.reverseWords("Sky is Blue");
+    return 0;
+}
 
 
 
