@@ -113,15 +113,97 @@ public:
     }
 };
 
+class Solution_334 {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        if(nums.size()<3) return false;
+
+        int low = INT_MAX;
+        int mid = INT_MAX;
+        for(int i=0; i<nums.size(); i++){
+            if(nums[i] > mid) return true;
+
+            if(nums[i]<low)                 low = nums[i]; 
+            if(nums[i]>low && nums[i]<mid)  mid = nums[i]; 
+            // printf("[%d] %d   %d %d\n", i, nums[i], low, mid);
+        }
+        return false;
+    }
+};
+
+class Solution_443 {
+public:
+int compress(vector<char>& chars) {
+        int n = chars.size();
+        if(n <= 1) return n;
+
+        int i = 0;
+        for(int j=0; j<n; j++){
+            int count = 1;
+            while(j < n-1 && chars[j] == chars[j+1]){
+                count++;
+                j++;
+            }
+
+            chars[i++] = chars[j];  
+            if(count!=1){
+                for(auto d: to_string(count)) chars[i++] = d;
+            }
+        }
+        return i;
+    }
+};
+
+class Solution_283 {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int next = 0;
+        for(int i=0; i<nums.size(); ++i){
+            if(nums[i]) swap(nums[i], nums[next++]);
+        }
+    }
+};
+
+class Solution_392 {
+public:
+    bool isSubsequence(string s, string t) {
+        int i=0, j=0;
+        if(i==s.size()) return true;
+        while(j<t.size()){
+            if(s[i]==t[j]){
+                i++; j++;
+                if(i==s.size()) return true;
+            } else {
+                j++;
+            }
+        }
+        return false;
+    }
+};
+
+class Solution_11 {
+public:
+    int maxArea(vector<int>& height) {
+        int hmin, i=0, j=height.size()-1;
+        int amax=0;
+        while(i<j){
+            hmin = min(height[i], height[j]);
+            amax = max(amax, hmin*(j-i));
+            if(hmin == height[i]) i++;
+            else j--;
+        }
+        return amax;
+    }
+};
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    Solution_151 Solution_151;
-    cout << Solution_151.reverseWords("Sky is Blue");
+    Solution_334 Solution_334;
+    vector<int> nums = {2,1,5,0,4,6};
+    Solution_334.increasingTriplet(nums);
     return 0;
 }
-
-
 
 
 
