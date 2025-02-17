@@ -264,7 +264,7 @@ public:
     }
 };
 
-class Solution {
+class Solution_1493 {
 public:
     int longestSubarray(vector<int>& nums) {
         int n = nums.size();
@@ -283,15 +283,48 @@ public:
     }
 };
 
+class Solution_1732 {
+public:
+    int largestAltitude(vector<int>& gain) {
+        int alt=0, altmax=0;
+        for(auto g:gain){
+            alt = alt+g;
+            altmax = max(altmax, alt);
+        }
+
+        return altmax;
+    }
+};
+
+
+class Solution_724 {
+public:
+    int pivotIndex(vector<int>& nums) {
+        int rightSum = accumulate(nums.begin(), nums.end(), 0);
+        int leftSum = 0;
+        for(int i=0; i<nums.size(); i++){
+            rightSum = rightSum - nums[i];
+            if(leftSum==rightSum) return i;
+            leftSum = leftSum + nums[i];
+        }
+        return -1;
+    }
+};
+
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    Solution_334 Solution_334;
-    vector<int> nums = {2,1,5,0,4,6};
-    Solution_334.increasingTriplet(nums);
+    // Solution_334 Solution_334;
+    // vector<int> nums = {2,1,5,0,4,6};
+    // Solution_334.increasingTriplet(nums);
+    queue<int> q={};
+
     return 0;
 }
 
+// practise 
+// 1372. Longest ZigZag Path in a Binary Tree
 
 
 
