@@ -280,3 +280,48 @@ bool isBST(TreeNode* root, TreeNode* nmin, TreeNode* nmax){
 bool isValidBST(TreeNode* root) {
     return isBST(root, NULL, NULL);
 }
+
+
+// https://leetcode.com/problems/search-in-rotated-sorted-array/
+// 6 7 1 2 3 4 5
+// 3 4 5 6 7 1 2
+// learn: sorted but rotated ==>
+// left < mid         ==> left-sorted
+//        mid < right ==> right-sorted 
+int search(vector<int>& nums, int target) {
+    int left=0, right=nums.size()-1;
+    while(left<=right){
+        int mid = left + (right-left)/2;
+        if(nums[mid] == target) return mid;
+
+        if(nums[left] < nums[mid]){
+            // left-half sorted
+            if(nums[left]<=target && target < nums[mid]){
+                right = mid-1;
+            } else {
+                left = mid+1;
+            }
+        } else {
+            // right-half sorted
+            if(nums[mid]<target && target<=nums[right]){
+                left = mid+1;
+            } else {
+                right = mid-1;
+            }
+        }
+    }
+    return -1;
+}
+
+
+
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if(!root || root==p || root==q) return root;
+    auto aleft = lowestCommonAncestor(root->left,p,q);
+    auto aright = lowestCommonAncestor(root->right,p,q);
+    if(!aleft) return aright;
+    if(!aright) return aleft;
+    return root;
+}
+
