@@ -325,3 +325,66 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
     return root;
 }
 
+
+
+
+// https://leetcode.com/problems/course-schedule/
+// detect cycle in Directed Graph
+bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+    vector<int> indegree(numCourses,0); // edge incoming
+    vector<vector<int>> adj(numCourses);
+    for(auto x:prerequisites){
+        int a=x[0], b=x[1];
+        adj[b].push_back(a);
+        indegree[a]++;
+    }
+
+    queue<int> q; int count=0;
+    for(int i=0; i<numCourses; i++){
+        if(indegree[i]==0) { q.push(i); count++;}
+    }
+
+    while(q.size()){
+        int p = q.front(); q.pop();
+        for(auto x:adj[p]){
+            indegree[x]--;
+            if(indegree[x]==0) { q.push(x); count++;}
+        }
+    }
+
+    return (count==numCourses);
+}
+
+
+
+// https://leetcode.com/problems/permutations/
+vector<vector<int>> permute(vector<int>& nums) {
+    vector<vector<int>> result;
+    sort(nums.begin(), nums.end());
+    do {
+        result.push_back(nums);
+    } while(next_permutation(nums.begin(), nums.end())); // learn: req sorted vector
+
+    return result;
+}
+
+vector<vector<int>> permute(vector<int>& nums) {
+    vector<vector<int>> result;
+    vector<bool> chosen(nums.size(), false);
+    vector<int> p;
+    function<void()> search = [&](void){
+        if(p.size()==nums.size()){
+            result.push_back(p); return;
+        }
+
+        for(int i=0; i<nums.size(); i++){
+            if(chosen[i]) continue;
+            chosen[i]=true; p.push_back(nums[i]);
+            search();
+            chosen[i]=false; p.pop_back();
+        }
+    };
+    search();
+    return result;
+}
+
