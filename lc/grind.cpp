@@ -447,3 +447,37 @@ vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
     dfs(root, targetSum, path);
     return result;
 }
+
+
+
+// learn: directions instead of dy, dx 
+// d[] = {0, 1, 0, -1, 0};
+// ny=y+dy[k] nx=x+dx[k+1]
+
+
+// https://leetcode.com/problems/merge-k-sorted-lists/
+// learn: merge sort (hard)
+ListNode* merge2List(ListNode* a, ListNode* b){
+    if(!a) return b;
+    if(!b) return a;
+    if(a->val <= b->val){
+        a->next = merge2List(a->next, b);
+        return a;
+    } else {
+        b->next = merge2List(a, b->next);
+        return b;
+    }
+}
+ListNode* mergeKLists(vector<ListNode*>& lists) {
+    if(lists.empty()) return NULL;
+    int n = lists.size();
+    while(n>1){
+        for(int i=0; i<n/2; i++){
+            lists[i] = merge2List(lists[i], lists[n-1-i]);
+        }
+        n=(n+1)/2;
+    }
+    return lists[0];
+}
+
+
