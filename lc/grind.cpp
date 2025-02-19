@@ -409,3 +409,41 @@ int coinChange(vector<int>& coins, int amount) {
     return dp[amount];
 }
 
+
+// https://leetcode.com/problems/combination-sum/ ------------
+// backtrack complete search 
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    // complete search - backtrack
+    vector<int> v;
+    vector<vector<int>> result;
+    function<void(int,int)> search = [&](int i, int sum){
+        if(sum==target) {result.push_back(v); return;}
+        if(sum>target || i>=candidates.size()) return;
+        v.push_back(candidates[i]);
+        search(i, sum+candidates[i]); // re-use candidate
+        v.pop_back();
+        search(i+1, sum); // drop current candidate
+    };
+    search(0,0);
+    return result;
+}
+
+
+// backtrack with tree 
+// https://leetcode.com/problems/path-sum-ii/
+vector<vector<int>> result;
+vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+    result.clear(); 
+    if(!root) return result;
+    function<void(TreeNode*,int,vector<int>&)> dfs = [&](TreeNode* root, int target, vector<int>& path){
+        if(!root) return;
+        path.push_back(root->val);
+        if(!root->left && !root->right && root->val == target) result.push_back(path);
+        dfs(root->left, target-root->val, path);
+        dfs(root->right, target-root->val, path);
+        path.pop_back();
+    };
+    vector<int> path;
+    dfs(root, targetSum, path);
+    return result;
+}
