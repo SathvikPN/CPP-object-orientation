@@ -12,12 +12,49 @@ void weird_algorithm();
 void missing_number();
 void repetitions();
 void increasing_array();
+void beautiful_permutations();
+void number_spiral();
 
 int main() {
     // iofile();
-    increasing_array();
-
+    hello();
     return 0;
+}
+
+void number_spiral() {
+    int t; cin >> t;
+    for (;t>0; t--) {
+        ll y; cin >> y;
+        ll x; cin >> x;
+
+        ll d = max(x,y);
+        ll dmax = (d*d);
+        if (d&1) {
+            cout << dmax-y+1 - (d-x) << endl;
+        } else {
+            cout << dmax-x+1 - (d-y) << endl;
+        }
+    }
+    
+}
+
+void beautiful_permutations() {
+    int n; cin >> n;
+    if ((n < 4) && (n!=1)) {
+        cout << "NO SOLUTION";
+        return;
+    }
+
+    int start;
+    start = (n&1) ? 1 : 2;
+    for (int i=start; i<=n; i+=2) {
+        cout << i << " ";
+    }
+
+    start = (start==1) ? (start+1) : (start-1); 
+    for (int i=start; i<=n; i+=2) {
+        cout << i << " ";
+    }
 }
 
 void increasing_array() {
