@@ -388,3 +388,24 @@ vector<vector<int>> permute(vector<int>& nums) {
     return result;
 }
 
+
+
+// https://leetcode.com/problems/coin-change/submissions/
+int coinChange(vector<int>& coins, int amount) {
+    vector<long> dp(amount+1, INT_MAX);
+    dp[0]=0;
+    // for(auto c:coins){
+    //     for(int x=c; x<=amount; x++){
+    //         dp[x]=min(dp[x], 1+dp[x-c]);
+    //     }
+    // }
+    for(int x=1; x<=amount; x++){
+        for(auto c:coins){
+            if(x-c>=0) dp[x]=min(dp[x], 1+dp[x-c]);
+        }
+    }
+
+    if(dp[amount]==INT_MAX) return -1;
+    return dp[amount];
+}
+
